@@ -1,0 +1,203 @@
+:root {
+    --bg-color: #2c003e;
+    --primary: #ff00cc;
+    --secondary: #33ccff;
+    --accent: #ffff00;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    cursor: none; /* Hide default cursor */
+    overflow-x: hidden;
+    image-rendering: pixelated;
+}
+
+/* --- Custom Cursor --- */
+#custom-cursor {
+    position: fixed;
+    width: 40px; /* Smaller cursor */
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%) rotate(-15deg); /* Tilted slightly */
+    transition: transform 0.1s;
+}
+
+#custom-cursor img {
+    width: 100%;
+    filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.5));
+}
+
+/* Active click state for cursor */
+.cursor-active {
+    transform: translate(-50%, -50%) rotate(0deg) scale(0.9) !important;
+}
+
+/* --- Stars Background Animation --- */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: 
+        radial-gradient(white 2px, transparent 0) 0 0,
+        radial-gradient(white 1px, transparent 0) 0 0;
+    background-size: 75px 75px, 25px 25px;
+    opacity: 0.3;
+    /* Animation handled by JS for interaction, but fallback here */
+    transition: background-position 0.1s ease-out;
+}
+
+/* --- Nyan Cat & Rainbow Animation --- */
+.nyan-container {
+    position: fixed;
+    top: 15%;
+    left: -100%; /* Start off screen */
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    animation: flyAcross 15s linear infinite;
+}
+
+.rainbow-trail {
+    display: flex;
+    flex-direction: row; /* Horizontal segments */
+    height: 40px; /* Adjust to match cat height approx */
+    width: auto;
+    margin-right: -5px; /* Slight overlap with cat */
+}
+
+.trail-segment {
+    width: 20px; /* Width of one "pixel block" of the trail */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.rainbow-stripe {
+    flex: 1;
+    width: 100%;
+}
+
+.r-red { background: #ff0000; }
+.r-orange { background: #ff9900; }
+.r-yellow { background: #ffff00; }
+.r-green { background: #33ff00; }
+.r-blue { background: #0099ff; }
+.r-indigo { background: #4b0082; } /* Indigo/Purple */
+.r-violet { background: #6633ff; } /* Violet/Darker Purple */
+
+/* Wave Animation for Trail */
+@keyframes waveTrail {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+    100% { transform: translateY(0); }
+}
+
+.trail-segment {
+    animation: waveTrail 0.3s steps(1) infinite;
+}
+
+.trail-segment:nth-child(even) {
+    animation-delay: 0.15s;
+}
+
+/* Keyframe to make rainbow grow as cat flies */
+@keyframes flyAcross {
+    0% { left: -1000px; } /* Start further back to show full trail */
+    100% { left: 110%; }
+}
+
+.nyan-cat-img {
+    height: 60px;
+    image-rendering: pixelated;
+    z-index: 2;
+    /* Optional: animate cat bobbing if the gif doesn't match perfectly */
+    animation: waveTrail 0.3s steps(1) infinite;
+    animation-delay: 0.15s; /* Sync with even segments usually */
+}
+
+/* --- Balloon Cat Floater (Removed CSS animation for JS control) --- */
+#balloon-cat {
+    /* Initial position handled by JS */
+    transition: transform 0.1s linear; /* Smooth movement */
+}
+
+/* --- Layout Utilities --- */
+.pixel-box {
+    background: rgba(0, 0, 0, 0.6);
+    border: 4px solid #fff;
+    box-shadow: 8px 8px 0px var(--primary);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: transform 0.2s;
+}
+.pixel-box:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 10px 10px 0px var(--secondary);
+}
+
+.pixel-btn {
+    background: var(--primary);
+    color: white;
+    border: 4px solid white;
+    padding: 15px 20px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    box-shadow: 4px 4px 0px #000;
+    transition: all 0.1s;
+}
+.pixel-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px #000;
+}
+
+/* Hacker Text Effect */
+.hacker-text {
+    color: #0f0;
+    text-shadow: 2px 2px 0 #000;
+}
+
+/* --- Matrix Mode --- */
+body.matrix-mode {
+    --bg-color: #000000;
+    --primary: #00ff00;
+    --secondary: #003300;
+    --accent: #00cc00;
+    color: #00ff00;
+}
+body.matrix-mode .pixel-box {
+    border-color: #00ff00;
+    box-shadow: 8px 8px 0px #003300;
+    background: rgba(0, 20, 0, 0.9);
+}
+body.matrix-mode .text-yellow-300, 
+body.matrix-mode .text-pink-300,
+body.matrix-mode .text-blue-300,
+body.matrix-mode .text-purple-400 {
+    color: #00ff00 !important;
+}
+body.matrix-mode .stars {
+    display: none;
+}
+body.matrix-mode #matrix-canvas {
+    opacity: 0.3;
+}
+
+/* --- Music Player --- */
+#music-player {
+    font-family: 'Press Start 2P', cursive;
+}
+
+/* --- Skill Filtering --- */
+.project-card.hidden-project {
+    display: none;
+}
+.skill-tag.active-filter {
+    color: var(--accent);
+    text-decoration: underline;
+}
