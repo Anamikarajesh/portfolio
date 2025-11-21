@@ -137,7 +137,7 @@
       function animateBalloon() {
           if (!isDragging) {
               // Float up
-              y -= 1; 
+              y -= 0.3; 
               
               // Slight drift using sine wave based on y position
               x += Math.sin(y * 0.05) * 0.5;
